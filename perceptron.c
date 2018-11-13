@@ -33,10 +33,9 @@ float activation (float dot_p)
   if (dot_p >= THRESHOLD)
   {
     yhat=1;
-  /*printf("\nThreshold crossed\n" );*/
   }
   else
-  {  /*printf("\nThreshold NOT crossed\n" );*/
+  {  
     yhat=0;
   }
 return yhat;
