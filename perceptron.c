@@ -3,8 +3,8 @@
 #include <string.h>
 #include <math.h>
 /* Perceptron Implementation (Ansi C)
- *
- *
+ * Marco Aguero
+ * Basic NAND implementation 
  *
 */
 
@@ -20,7 +20,7 @@ float activation(float);
 float dot (int cycle,float px[X_ROWS][X_COLS],float wx[])
 {float dotp;
   for (int cnt2=0;cnt2<X_COLS;cnt2++)
-  { /*printf("cnt2 is %d and dot is %f\n",cnt2, dotp );*/
+  { 
     dotp=dotp+(wx[cnt2]*px[cycle][cnt2]);
   }
 
@@ -42,17 +42,7 @@ float activation (float dot_p)
 return yhat;
 }
 
-void red () {
-  printf("\033[1;31m");
-}
 
-void yellow () {
-  printf("\033[1;33m");
-}
-
-void reset () {
-  printf("\033[0m");
-}
 
 int main ()
 {
@@ -79,11 +69,8 @@ float x[X_ROWS][X_COLS]={
 };
 /*Init weights*/
 memset(&w[0], 0, sizeof(w));
-/*0.20  -0.20  -0.10  0.20*/
-w[0]=0.20;
-w[1]=-0.20;
-w[2]=-0.10;
-w[3]=0.20;
+/*0.20  -0.20  -0.10  0.20 for 1 epoch convergence*/
+
 /*Getting array sizes for later use*/
 x_sz=sizeof(x)/sizeof(int);
 w_sz=sizeof(w)/sizeof(int);
@@ -94,27 +81,18 @@ float yhat;
 float eta=0.1;
 float new_weight=0.0;
 
-
-/*for (int m_counter=0;m_counter<=ITERATIONS;m_counter++)*/
-
-yellow();
 printf ("Bias \t W1 \t W2 \t DotP \t Yhat \t Y \n\n");
-reset();
+
 do
 {
-/*printf("\nStarting epoch (%d)\n", epoch );*/
+
 printf("Epoch(%d)\n",epoch);
 for (int x_cnt=0;x_cnt < X_ROWS; x_cnt++)
 {
 
-/*printf ("Init Weights: [%f,%f,%f]\n",w[0],w[1],w[2]);*/
 // dot product calculation //
 dot_p=dot(x_cnt,x,w);
-/*for (int cnt2=0;cnt2<X_COLS;cnt2++)
-{
-  dot_p=dot_p+(w[cnt2]*x[x_cnt][cnt2]);
-}
-*/
+
 
 //Threshold comparison
 
@@ -131,19 +109,10 @@ for (int cnt4=0;cnt4<X_COLS;cnt4++)
         printf ("%.2f \t",w[cnt4]);
 }
 printf ("%.2f \t\t %f \t %f \n", dot_p, y[x_cnt],yhat_vec[x_cnt]);
-/*for i in xrange(0,len(y)):
-   errors[i] = (y[i]-yhat_vec[i])**2
-J.append(0.5*np.sum(errors))
-*/
-
-//errors[i] = (y[i]-yhat_vec[i])**2
 
 
-/*
-printf ("\nWeights: [%f,%f,%f], Error: %f\n",w[0],w[1],w[2], J[epoch]);
-*/
 
-} /* end of the main for */
+} 
 for (int cnt5=0;cnt5<X_ROWS;cnt5++)
 {
   errors[cnt5]= powf(y[cnt5]-yhat_vec[cnt5],2);
@@ -163,8 +132,6 @@ printf ("\n");
 epoch++;
 } /* Iterations loop closure */
 while (y[0]!=yhat_vec[0] ||y[1]!=yhat_vec[1] ||y[2]!=yhat_vec[2] ||y[3]!=yhat_vec[3] && epoch <= ITERATIONS);
-//float val=0.1;
-//printf ("hello %.2f", val);
 
 printf ("\n");
 }
