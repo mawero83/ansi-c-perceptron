@@ -5,7 +5,7 @@
 /* Perceptron Implementation (Ansi C)
  * Marco Aguero
  * Basic NAND implementation 
- *
+ * Adding git comment 
 */
 
 //Definitions and prototypes
